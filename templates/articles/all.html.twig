@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Articles List {% endblock %}
+{% block body %}
+    <div class="container">
+    <table class="articles-list table table-striped">
+        <thead>
+          <tr>
+            <th>Article Title</th>
+            <th style="text-align: right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                <td style="width: 50%"><a href="{{ article.open }}">{{ article.title }}</a></td>
+                <td style="width: 50%; text-align: right">
+                    <a class="btn btn-dark" href="{{ article.edit }}">Edit</a>
+                    <a class="btn btn-dark" href="{{ article.remove }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock %}

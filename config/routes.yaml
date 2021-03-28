@@ -1,0 +1,46 @@
+index:
+  path: /
+  controller: App\Routing\Controllers\IndexController::index
+
+articles_index:
+  path: /articles
+  controller: App\Routing\Controllers\ArticleController::index
+
+articles_all:
+  path: /articles/all
+  controller: App\Routing\Controllers\ArticleController::all
+
+articles_get:
+  path: /articles/{id}
+  controller: App\Routing\Controllers\ArticleController::get
+  requirements:
+    id: '\d+'
+
+articles_new:
+  path: /articles/new
+  controller: App\Routing\Controllers\ArticleController::add
+
+articles_create:
+  path: /articles/create
+  controller: App\Routing\Controllers\ArticleController::create
+
+articles_edit:
+  path: /articles/{id}/edit
+  controller: App\Routing\Controllers\ArticleController::update
+
+articles_save:
+  path: /articles/save
+  controller: App\Routing\Controllers\ArticleController::save
+  methods: POST
+
+articles_remove:
+  path: /articles/{id}/remove
+  controller: App\Routing\Controllers\ArticleController::remove
+
+
+
+remove_trailing_slash:
+  path: /{url}
+  controller: App\Routing\Controllers\RedirectController::removeTrailingSlash
+  requirements:
+    url: .*/$

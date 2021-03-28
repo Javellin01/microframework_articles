@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Articles List {% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="article-header">
+            <h1>{{ article.title }}</h1>
+        </div>
+        <br>
+        <div class="article-content">
+            <p>{{ article.text }}</p>
+            <br>
+            <a href="{{ edit }}" class="btn btn-dark">Edit Article</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Articles List {% endblock %}
+{% block body %}
+    <div class="container">
+        <form method="post" action="{{ save }}" class="article__edit-form">
+            <div class="form-item">
+                <label for="title">Title</label>
+                <input name="title" type="text">
+            </div>
+            <div class="form-item">
+                <label for="content">Text</label>
+                <textarea name="content" cols="70" rows="10"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-dark">Save</button>
+        </form>
+    </div>
+{% endblock %}
+
