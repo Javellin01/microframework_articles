@@ -37,7 +37,9 @@ articles_remove:
   path: /articles/{id}/remove
   controller: App\Routing\Controllers\ArticleController::remove
 
-
+user_auth:
+  path: /auth
+  controller: App\Routing\Controllers\UserController::auth
 
 remove_trailing_slash:
   path: /{url}

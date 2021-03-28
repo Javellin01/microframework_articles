@@ -8,7 +8,7 @@ class Article
     private $title;
     private $text;
 
-    public function setId($id): Article
+    public function setId(int $id): self
     {
         $this->id = $id;
 
@@ -18,7 +18,7 @@ class Article
     /**
      * @return mixed
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -26,7 +26,7 @@ class Article
     /**
      * @return mixed
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -34,7 +34,7 @@ class Article
     /**
      * @param mixed $title
      */
-    public function setTitle($title): Article
+    public function setTitle(string $title): self
     {
         $this->title = $title;
 
@@ -44,7 +44,7 @@ class Article
     /**
      * @return mixed
      */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
@@ -52,7 +52,7 @@ class Article
     /**
      * @param mixed $text
      */
-    public function setText($text): Article
+    public function setText(string $text): self
     {
         $this->text = $text;
 
