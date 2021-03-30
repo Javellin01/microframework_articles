@@ -8,7 +8,7 @@ class UserController extends BaseController
 {
     public function auth()
     {
-        $login = 'thislogin1';
+        $login = 'thislogin';
         $pass = 'thispassword';
 
         $service = new UserService();

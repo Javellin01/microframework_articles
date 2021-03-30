@@ -17,17 +17,17 @@ class UserService
         $this->repository = new UserRepository();
     }
 
-
-    public  function signIn(string $login, string $pass): ?User
+    public function signIn(string $login, string $pass): ?User
     {
         $user = $this->repository->getBy('login', $login);
 
-        $result = false;
+        $result = null;
         if ($user)
         {
             if (password_verify($pass, $user->getPassword()))
             {
                 $result = $user;
+                dump($result);
             }
         }
 

@@ -17,8 +17,8 @@ class Connection
         'port' => 33060,
         'database' => 'homestead',
         'user' => 'homestead',
-        'pass' => 'secret',
-//        'pass' => 'K2dt9D%wh9IL3bKO%uBB',
+//        'pass' => 'secret',
+        'pass' => 'K2dt9D%wh9IL3bKO%uBB',
         'charset' => 'utf8',
     ];
 
