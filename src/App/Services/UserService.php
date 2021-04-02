@@ -2,12 +2,15 @@
 
 namespace App\App\Services;
 
+use App\App\App;
 use App\Domain\Entity\User;
 use App\Domain\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class UserService
 {
     private $repository;
+    private $session;
 
     /**
      * UserService constructor.
@@ -21,17 +24,21 @@ class UserService
     {
         $user = $this->repository->getBy('login', $login);
 
-        $result = null;
         if ($user)
         {
             if (password_verify($pass, $user->getPassword()))
             {
-                $result = $user;
-                dump($result);
+                $this->session->set('userId', $user->getId());
+
+                return $user;
             }
         }
 
-        return $result;
+        return null;
     }
 
+    public static function getUser()
+    {
+//        $userId = $this->session()
+    }
 }

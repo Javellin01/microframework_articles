@@ -42,7 +42,6 @@ class UserRepository implements IUserRepository
     public function getBy(string $field, string $value): ?User
     {
         $queryResult = $this->storage->findBy(self::ENTITY, $field, $value);
-        dump($queryResult);
 
         $result = null;
         if ($queryResult) {

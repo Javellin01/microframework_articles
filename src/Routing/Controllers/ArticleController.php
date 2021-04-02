@@ -2,6 +2,7 @@
 
 namespace App\Routing\Controllers;
 
+use App\App\App;
 use App\Domain\Entity\Article;
 use App\Domain\Repository\ArticleRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -94,4 +95,5 @@ class ArticleController extends BaseController
 
         return $this->redirectToRoute('articles_all');
     }
+
 }

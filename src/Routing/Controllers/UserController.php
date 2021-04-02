@@ -2,6 +2,7 @@
 
 namespace App\Routing\Controllers;
 
+use App\App\App;
 use App\App\Services\UserService;
 
 class UserController extends BaseController
@@ -13,6 +14,7 @@ class UserController extends BaseController
 
         $service = new UserService();
         $user = $service->signIn($login, $pass);
+        dump(UserService::getUser());
 
         return $this->json($user);
     }

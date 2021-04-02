@@ -2,12 +2,14 @@
 
 namespace App\Routing\Controllers;
 
+use App\App\App;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  */
-class IndexController extends BaseController
+class IndexController extends AbstractController
 {
     /**
      * @return JsonResponse

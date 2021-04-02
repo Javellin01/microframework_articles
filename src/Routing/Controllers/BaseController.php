@@ -6,6 +6,7 @@ use App\App\App;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 abstract class BaseController
 {
@@ -36,5 +37,12 @@ abstract class BaseController
     protected function redirectToRoute(string $route): RedirectResponse
     {
         return new RedirectResponse(App::getInstance()->getRouter()->generate($route));
+    }
+
+    protected final function checkAccess()
+    {
+//        $session = new Session();
+//        dump($session->get('foo'));
+//        $session->remove('foo');
     }
 }

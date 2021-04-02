@@ -7,12 +7,12 @@ use PDOException;
 
 /**
  * Class Connection
- * @package App\Domain
+ * @package App\Domain\Storage\Connection
  */
-class Connection
+final class Connection
 {
-    protected static $instance;
-    protected static $dbInfo = [
+    private static $instance;
+    private static $dbInfo = [
         'host' => 'localhost',
         'port' => 33060,
         'database' => 'homestead',
