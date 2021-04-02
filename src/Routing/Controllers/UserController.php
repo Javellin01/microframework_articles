@@ -14,7 +14,7 @@ class UserController extends BaseController
 
         $service = new UserService();
         $user = $service->signIn($login, $pass);
-        dump(UserService::getUser());
+        dump(App::getInstance()->getUser());
 
         return $this->json($user);
     }

@@ -33,8 +33,9 @@ class UserRepository implements IUserRepository
         $result = new User();
         $result
             ->setId($queryResult->id)
-            ->setTitle($queryResult->title)
-            ->setText($queryResult->text);
+            ->setLogin($queryResult->login)
+            ->setPassword($queryResult->password)
+            ->setEmail($queryResult->email);
 
         return $result;
     }

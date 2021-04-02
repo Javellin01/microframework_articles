@@ -2,6 +2,7 @@
 
 namespace App\App;
 
+use App\App\Services\UserService;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
@@ -27,6 +28,7 @@ class App
     private $requestContext;
     private $router;
     private $twig;
+    private $user;
 
     private function __construct()
     {
@@ -34,6 +36,21 @@ class App
         $this->setRequestContext(new RequestContext());
         $this->setRouter();
         $this->setTwig();
+        $this->setUser();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    private function setUser(): void
+    {
+        $service = new UserService();
+        $this->user = $service->getUser();
     }
 
     /**

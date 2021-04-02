@@ -11,11 +11,6 @@ class User
     private $password;
     private $email;
 
-    public static function signIn(string $login, string $pass)
-    {
-
-    }
-
     /**
      * @return mixed
      */

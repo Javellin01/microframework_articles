@@ -18,6 +18,7 @@ class UserService
     public function __construct()
     {
         $this->repository = new UserRepository();
+        $this->session = new Session();
     }
 
     public function signIn(string $login, string $pass): ?User
@@ -37,8 +38,10 @@ class UserService
         return null;
     }
 
-    public static function getUser()
+    public function getUser()
     {
-//        $userId = $this->session()
+        $userId = $this->session->get('userId');
+
+        return $this->repository->get($userId);
     }
 }
