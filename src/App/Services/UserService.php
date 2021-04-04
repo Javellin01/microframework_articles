@@ -2,7 +2,6 @@
 
 namespace App\App\Services;
 
-use App\App\App;
 use App\Domain\Entity\User;
 use App\Domain\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Session\Session;

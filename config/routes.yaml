@@ -18,7 +18,7 @@ articles_get:
 
 articles_new:
   path: /articles/new
-  controller: App\Routing\Controllers\ArticleController::add
+  controller: App\Routing\Controllers\ArticleController::new
 
 articles_create:
   path: /articles/create
@@ -26,7 +26,7 @@ articles_create:
 
 articles_edit:
   path: /articles/{id}/edit
-  controller: App\Routing\Controllers\ArticleController::update
+  controller: App\Routing\Controllers\ArticleController::edit
 
 articles_save:
   path: /articles/save

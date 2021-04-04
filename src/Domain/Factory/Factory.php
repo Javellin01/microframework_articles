@@ -7,6 +7,10 @@ use samdark\hydrator\Hydrator;
 
 abstract class Factory implements IFactory
 {
+    /**
+     * @param array $arr
+     * @return object
+     */
     public static function createFromArray(array $arr)
     {
         $self = new static();
@@ -21,6 +25,10 @@ abstract class Factory implements IFactory
         return $entity;
     }
 
+    /**
+     * @param $entity
+     * @return array
+     */
     public static function getEntityProperties($entity): array
     {
         $result = [];
@@ -33,6 +41,9 @@ abstract class Factory implements IFactory
         return $result;
     }
 
+    /**
+     * @return array
+     */
     protected function getHydrateMap(): array
     {
         $map = [];

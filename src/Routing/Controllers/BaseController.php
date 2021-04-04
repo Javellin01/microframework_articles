@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 abstract class BaseController
 {
     protected $repository;
+    protected $service;
 
     protected function render(string $view, array $params = [])
     {

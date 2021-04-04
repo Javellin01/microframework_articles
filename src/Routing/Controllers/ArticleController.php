@@ -3,6 +3,7 @@
 namespace App\Routing\Controllers;
 
 use App\App\App;
+use App\App\Services\ArticleService;
 use App\Domain\Entity\Article;
 use App\Domain\Repository\ArticleRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -14,6 +15,7 @@ class ArticleController extends BaseController
     public function __construct()
     {
         $this->repository = new ArticleRepository();
+        $this->service = new ArticleService();
     }
 
     public function index()
@@ -48,12 +50,12 @@ class ArticleController extends BaseController
         return $this->render('/articles/all', ['articles' => $result]);
     }
 
-    public function add(): Response
+    public function new(): Response
     {
         return $this->render('/articles/new', ['save' => $this->generateUrl('articles_create')]);
     }
 
-    public function update(Request $request): Response
+    public function edit(Request $request): Response
     {
         $id = $request->attributes->get('id');
         $article = $this->repository->get($id);
@@ -66,25 +68,15 @@ class ArticleController extends BaseController
 
     public function create(Request $request): RedirectResponse
     {
-        $article = new Article();
-        $article->
-            setTitle($request->request->get('title'))->
-            setText($request->request->get('content'));
-
-        $this->repository->add($article);
+        $id = $this->service->add($request->request->all());
 
         return $this->redirectToRoute('articles_all');
+
     }
 
     public function save(Request $request): RedirectResponse
     {
-        $article = new Article();
-        $article->
-            setId($request->request->get('id'))->
-            setTitle($request->request->get('title'))->
-            setText($request->request->get('content'));
-
-        $this->repository->update($article);
+        $id = $this->service->update($request->request->all());
 
         return $this->redirectToRoute('articles_all');
     }
