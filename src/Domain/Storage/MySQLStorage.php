@@ -53,7 +53,7 @@ class MySQLStorage implements IStorage
         $stm = $this->connection->prepare('SELECT * FROM ' . $table . ' WHERE id=?');
         $stm->execute([$id]);
 
-        return $stm->fetch(PDO::FETCH_OBJ);
+        return $stm->fetch(PDO::FETCH_ASSOC);
     }
 
 
@@ -80,7 +80,7 @@ class MySQLStorage implements IStorage
     {
         $stm = $this->connection->query('SELECT * FROM ' . $table);
 
-        return $stm->fetchAll(PDO::FETCH_OBJ);
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Domain\Repository;
 
 use App\Domain\Entity\Article;
+use App\Domain\Factory\ArticleFactory;
 use App\Domain\Storage\MySQLStorage;
 
 /**
@@ -24,19 +25,12 @@ class ArticleRepository implements IArticleRepository
 
     /**
      * @param int $id
-     * @return Article
      */
-    public function get(int $id): Article
+    public function get(int $id): object
     {
         $queryResult = $this->storage->find(self::ENTITY, $id);
 
-        $result = new Article();
-        $result
-            ->setId($queryResult->id)
-            ->setTitle($queryResult->title)
-            ->setText($queryResult->text);
-
-        return $result;
+        return ArticleFactory::createFromArray($queryResult);
     }
 
     /**
@@ -48,12 +42,7 @@ class ArticleRepository implements IArticleRepository
         $result = [];
 
         foreach ($queryResult as $resItem) {
-            $article = new Article();
-            $article
-                ->setId($resItem->id)
-                ->setTitle($resItem->title)
-                ->setText($resItem->text);
-            $result[] = $article;
+            $result[] = ArticleFactory::createFromArray($resItem);
         }
 
         return $result;

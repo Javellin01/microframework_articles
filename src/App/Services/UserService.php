@@ -42,6 +42,6 @@ class UserService
     {
         $userId = $this->session->get('userId');
 
-        return $this->repository->get($userId);
+        return $userId ? $this->repository->get($userId) : null;
     }
 }

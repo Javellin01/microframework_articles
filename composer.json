@@ -10,7 +10,8 @@
         "symfony/framework-bundle": "^5.2",
         "symfony/console": "^5.2",
         "symfony/templating": "^5.2",
-        "twig/twig": "^3.3"
+        "twig/twig": "^3.3",
+        "samdark/hydrator": "^1.0.4"
     },
     "require-dev": {
         "symfony/var-dumper": "^5.2"
