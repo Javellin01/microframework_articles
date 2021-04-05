@@ -5,6 +5,7 @@ namespace App\Domain\Repository;
 use App\Domain\Entity\User;
 use App\Domain\Factory\UserFactory;
 use App\Domain\Storage\MySQLStorage;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class UserRepository
@@ -30,6 +31,10 @@ class UserRepository implements IUserRepository
     public function get(int $id): ?User
     {
         $queryResult = $this->storage->find(self::ENTITY, $id);
+        if (!$queryResult)
+        {
+            throw new NotFoundHttpException('No such user');
+        }
         $user = UserFactory::createFromArray($queryResult);
 
         return ($user instanceof User) ? $user : null;
@@ -37,39 +42,20 @@ class UserRepository implements IUserRepository
 
     public function getBy(string $field, string $value): ?User
     {
+        $user = null;
         $queryResult = $this->storage->findBy(self::ENTITY, $field, $value);
 
-        $result = null;
-        if ($queryResult) {
-            $result = new User();
-            $result
-                ->setId($queryResult->id)
-                ->setLogin($queryResult->login)
-                ->setPassword($queryResult->password);
+        if ($queryResult)
+        {
+            $user = UserFactory::createFromArray($queryResult);
         }
 
-        return $result;
+        return ($user instanceof User) ? $user : null;
     }
 
-
-    /**
-     * @return array
-     */
-    public function all(): array
+    public function all()
     {
-        $queryResult = $this->storage->findAll(self::ENTITY);
-        $result = [];
-
-        foreach ($queryResult as $resItem) {
-            $User = new User();
-            $User
-                ->setId($resItem->id)
-                ->setTitle($resItem->title)
-                ->setText($resItem->text);
-            $result[] = $User;
-        }
-
-        return $result;
+        // TODO: Implement all() method.
     }
 
     public function add(User $user)

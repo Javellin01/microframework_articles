@@ -28,18 +28,23 @@ articles_edit:
   path: /articles/{id}/edit
   controller: App\Routing\Controllers\ArticleController::edit
 
-articles_save:
+api/articles_save:
   path: /articles/save
   controller: App\Routing\Controllers\ArticleController::save
   methods: POST
 
-articles_remove:
+api/articles_remove:
   path: /articles/{id}/remove
   controller: App\Routing\Controllers\ArticleController::remove
 
 user_auth:
   path: /auth
   controller: App\Routing\Controllers\UserController::auth
+
+api/signin:
+  path: /api/signin
+  controller: App\Routing\Controllers\UserController::signIn
+  methods: POST
 
 remove_trailing_slash:
   path: /{url}

@@ -69,7 +69,7 @@ class MySQLStorage implements IStorage
         $stm = $this->connection->prepare($sql);
         $stm->execute([$value]);
 
-        return $stm->fetch(PDO::FETCH_OBJ);
+        return $stm->fetch(PDO::FETCH_ASSOC);
     }
 
     /**

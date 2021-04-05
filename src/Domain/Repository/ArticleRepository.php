@@ -28,8 +28,12 @@ class ArticleRepository implements IArticleRepository
      */
     public function get(int $id): ?Article
     {
+        $article = null;
         $queryResult = $this->storage->find(self::ENTITY, $id);
-        $article = ArticleFactory::createFromArray($queryResult);
+        if ($queryResult)
+        {
+            $article = ArticleFactory::createFromArray($queryResult);
+        }
 
         return ($article instanceof Article) ? $article : null;
     }

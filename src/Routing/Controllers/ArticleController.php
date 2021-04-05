@@ -24,11 +24,19 @@ class ArticleController extends BaseController
     public function get(int $id): Response
     {
         $entity = $this->repository->get($id);
+        if ($entity)
+        {
+            $params = [
+                'article' => $entity->getData(),
+                'edit' => $this->generateUrl('articles_edit', ['id' => $entity->getId()]),
+            ];
+        }
+        else
+        {
+            $params = ['errors' => 'No such article'];
+        }
 
-        return $this->render('/articles/article', [
-            'article' => $entity->getData(),
-            'edit' => $this->generateUrl('articles_edit', ['id' => $entity->getId()]),
-        ]);
+        return $this->render('/articles/article', $params);
     }
 
     public function all(): Response
@@ -41,7 +49,7 @@ class ArticleController extends BaseController
                 'title' => $arrEntity->getTitle(),
                 'open' => $this->generateUrl('articles_get', ['id' => $arrEntity->getId()]),
                 'edit' => $this->generateUrl('articles_edit', ['id' => $arrEntity->getId()]),
-                'remove' => $this->generateUrl('articles_remove', ['id' => $arrEntity->getId()]),
+                'remove' => $this->generateUrl('api/articles_remove', ['id' => $arrEntity->getId()]),
             ];
         }
 
@@ -60,7 +68,7 @@ class ArticleController extends BaseController
 
         return $this->render('/articles/edit', [
             'article' => $article->getData(),
-            'save' => $this->generateUrl('articles_save')
+            'save' => $this->generateUrl('api/articles_save')
         ]);
     }
 
