@@ -2,9 +2,7 @@
 
 namespace App\Routing\Controllers;
 
-use App\App\App;
 use App\App\Services\ArticleService;
-use App\Domain\Entity\Article;
 use App\Domain\Repository\ArticleRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

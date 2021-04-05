@@ -26,11 +26,12 @@ class ArticleRepository implements IArticleRepository
     /**
      * @param int $id
      */
-    public function get(int $id): object
+    public function get(int $id): ?Article
     {
         $queryResult = $this->storage->find(self::ENTITY, $id);
+        $article = ArticleFactory::createFromArray($queryResult);
 
-        return ArticleFactory::createFromArray($queryResult);
+        return ($article instanceof Article) ? $article : null;
     }
 
     /**

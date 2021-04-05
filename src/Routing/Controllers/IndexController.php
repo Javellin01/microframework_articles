@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  */
-class IndexController extends AbstractController
+class IndexController extends BaseController
 {
     /**
      * @return JsonResponse

@@ -3,6 +3,7 @@
 namespace App\Domain\Repository;
 
 use App\Domain\Entity\User;
+use App\Domain\Factory\UserFactory;
 use App\Domain\Storage\MySQLStorage;
 
 /**
@@ -26,18 +27,12 @@ class UserRepository implements IUserRepository
      * @param int $id
      * @return User
      */
-    public function get(int $id): User
+    public function get(int $id): ?User
     {
         $queryResult = $this->storage->find(self::ENTITY, $id);
+        $user = UserFactory::createFromArray($queryResult);
 
-        $result = new User();
-        $result
-            ->setId($queryResult->id)
-            ->setLogin($queryResult->login)
-            ->setPassword($queryResult->password)
-            ->setEmail($queryResult->email);
-
-        return $result;
+        return ($user instanceof User) ? $user : null;
     }
 
     public function getBy(string $field, string $value): ?User
