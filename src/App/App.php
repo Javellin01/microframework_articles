@@ -3,6 +3,7 @@
 namespace App\App;
 
 use App\App\Services\UserService;
+use App\Domain\Entity\User;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
@@ -42,7 +43,7 @@ class App
     /**
      * @return mixed
      */
-    public function getUser()
+    public function getUser(): ?User
     {
         return $this->user;
     }
@@ -105,11 +106,24 @@ class App
         $function = new TwigFunction('route', function (string $route = '') {
             $route = $this->getRouter()->getRouteCollection()->get($route);
             if ($route) {
-                echo $route->getPath();
+                return $route->getPath();
             }
-            else {
-                echo '/#';
+
+            return '/#';
+        });
+
+        $this->twig->addFunction($function);
+
+        $function = new TwigFunction('userProfile', function () {
+            $result = [];
+            if ($this->getUser()) {
+                return $result = [
+                    'profileName' => $this->getUser()->getLogin(),
+                    'profileLink' => '/#'
+                ];
             }
+
+            return $result;
         });
 
         $this->twig->addFunction($function);
@@ -138,6 +152,15 @@ class App
     public function getRouter(): Router
     {
         return $this->router;
+    }
+
+    /**
+     * @param string $route
+     * @return string
+     */
+    public function getRoute(string $route): string
+    {
+        return $this->getRouter()->getRouteCollection()->get($route)->getPath();
     }
 
     /**

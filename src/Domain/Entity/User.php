@@ -10,6 +10,7 @@ class User
     private $login;
     private $password;
     private $email;
+    private $remember;
 
     /**
      * @return mixed
@@ -72,8 +73,23 @@ class User
         return $this;
     }
 
-    public function getData(): array
+    /**
+     * @return mixed
+     */
+    public function getRemember()
     {
-        return get_object_vars($this);
+        return $this->remember;
     }
+
+    /**
+     * @param string $remember
+     */
+    public function setRemember(string $remember): self
+    {
+        $this->remember = $remember;
+
+        return $this;
+    }
+
+
 }

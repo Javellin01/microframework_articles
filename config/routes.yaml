@@ -2,6 +2,10 @@ index:
   path: /
   controller: App\Routing\Controllers\IndexController::index
 
+test:
+  path: /test
+  controller: App\Routing\Controllers\IndexController::test
+
 articles_index:
   path: /articles
   controller: App\Routing\Controllers\ArticleController::index
@@ -45,6 +49,10 @@ api/signin:
   path: /api/signin
   controller: App\Routing\Controllers\UserController::signIn
   methods: POST
+
+api/signout:
+  path: /api/signout
+  controller: App\Routing\Controllers\UserController::signOut
 
 remove_trailing_slash:
   path: /{url}

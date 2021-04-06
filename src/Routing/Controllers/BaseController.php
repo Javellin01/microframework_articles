@@ -6,7 +6,6 @@ use App\App\App;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 abstract class BaseController
 {
@@ -20,9 +19,9 @@ abstract class BaseController
         return new Response($twig->render($view . '.html.twig', $params));
     }
 
-    protected function json($str): JsonResponse
+    protected function json($str, int $status = 200, array $headers = []): JsonResponse
     {
-        return new JsonResponse($str);
+        return new JsonResponse($str, $status, $headers);
     }
 
     protected function generateUrl(string $route, array $params = []): string
@@ -35,15 +34,8 @@ abstract class BaseController
         return new RedirectResponse($uri);
     }
 
-    protected function redirectToRoute(string $route): RedirectResponse
+    protected function redirectToRoute(string $route, int $status = 302, array $headers = []): RedirectResponse
     {
-        return new RedirectResponse(App::getInstance()->getRouter()->generate($route));
-    }
-
-    protected final function checkAccess()
-    {
-//        $session = new Session();
-//        dump($session->get('foo'));
-//        $session->remove('foo');
+        return new RedirectResponse(App::getInstance()->getRouter()->generate($route), $status, $headers);
     }
 }
