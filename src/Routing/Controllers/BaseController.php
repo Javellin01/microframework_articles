@@ -22,7 +22,7 @@ abstract class BaseController
         $this->cookie = $cookie;
     }
 
-    protected function render(string $view, array $params = [])
+    protected function render(string $view, array $params = []): Response
     {
         $twig = App::getInstance()->getTwig();
 

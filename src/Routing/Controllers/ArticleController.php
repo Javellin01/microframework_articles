@@ -2,6 +2,7 @@
 
 namespace App\Routing\Controllers;
 
+use App\App\App;
 use App\App\Services\ArticleService;
 use App\Domain\Repository\ArticleRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -74,7 +75,9 @@ class ArticleController extends BaseController
 
     public function create(Request $request): RedirectResponse
     {
-        $id = $this->service->add($request->request->all());
+        $params = $request->request->all();
+        $params['author'] = App::getInstance()->getUser()->getId();
+        $id = $this->service->add($params);
 
         return $this->redirectToRoute('articles_all');
 

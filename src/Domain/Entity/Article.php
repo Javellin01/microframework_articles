@@ -7,6 +7,7 @@ class Article
     private $id;
     private $title;
     private $text;
+    private $author;
 
     public function setId(int $id): self
     {
@@ -31,9 +32,7 @@ class Article
         return $this->title;
     }
 
-    /**
-     * @param mixed $title
-     */
+
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -49,12 +48,33 @@ class Article
         return $this->text;
     }
 
+
     /**
-     * @param mixed $text
+     * @param string $text
+     * @return $this
      */
     public function setText(string $text): self
     {
         $this->text = $text;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAuthor(): int
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param int $userId
+     * @return $this
+     */
+    public function setAuthor(int $userId): self
+    {
+        $this->author = $userId;
 
         return $this;
     }
