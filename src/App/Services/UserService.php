@@ -11,7 +11,6 @@ class UserService
 {
     private $repository;
     private $session;
-    private $cookie;
 
     /**
      * UserService constructor.
@@ -51,12 +50,10 @@ class UserService
         $user = $this->getUser();
         $user->setRemember('');
         $this->repository->update($user);
-
         $this->session->clear();
-        $cookie = Cookie::create('rememberstring')
-            ->withExpires(time() - 3600);
 
-        return $cookie->__toString();
+        return Cookie::create('rememberstring')
+            ->withExpires(time() - 3600);
     }
 
     public function getUser()
@@ -66,20 +63,18 @@ class UserService
         return $userId ? $this->repository->get($userId) : null;
     }
 
-    public function rememberMe(int $userId): string
+    public function rememberMe(int $userId): Cookie
     {
         $user = $this->repository->get($userId);
         if ($user)
         {
             $str = ApplicationHelper::randomString();
 
-            $cookie = Cookie::create('rememberstring')
-                ->withValue($str);
-
             $user->setRemember($str);
             $this->repository->update($user);
 
-            return $cookie->__toString();
+            return Cookie::create('rememberstring')
+                ->withValue($str);
         }
     }
 }

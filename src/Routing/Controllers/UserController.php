@@ -21,6 +21,11 @@ class UserController extends BaseController
 
     public function auth(): Response
     {
+        if (App::getInstance()->getUser())
+        {
+            return $this->redirectToRoute('index');
+        }
+
         return $this->render('/auth/signin', []);
     }
 
@@ -39,7 +44,7 @@ class UserController extends BaseController
             $result['success'] = true;
             $result['redirectTo'] = App::getInstance()->getRoute('articles_all');
             if (!empty($request->request->get('remember-me'))) {
-                $headers['Set-Cookie'] = $this->service->rememberMe($result['userId']);
+                $this->setCookie($this->service->rememberMe($result['userId']));
             }
         }
         else {
@@ -51,8 +56,8 @@ class UserController extends BaseController
 
     public function signOut(): RedirectResponse
     {
-        $headers['Set-Cookie'] = $this->service->signOut();
+        $this->setCookie($this->service->signOut());
 
-        return $this->redirectToRoute('articles_all', 302, $headers);
+        return $this->redirectToRoute('articles_all');
     }
 }
