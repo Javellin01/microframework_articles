@@ -80,12 +80,12 @@ class ArticleController extends BaseController
         $id = $this->service->add($params);
 
         return $this->redirectToRoute('articles_all');
-
     }
 
     public function save(Request $request): RedirectResponse
     {
-        $id = $this->service->update($request->request->all());
+        $params = $request->request->all();
+        $id = $this->service->update($params);
 
         return $this->redirectToRoute('articles_all');
     }

@@ -4,7 +4,7 @@ namespace App\Domain\Repository;
 
 use App\Domain\Entity\User;
 use App\Domain\Factory\UserFactory;
-use App\Domain\Storage\MySQLStorage;
+use App\Domain\Storage\SQLLiteStorage;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -21,7 +21,7 @@ class UserRepository implements IUserRepository
      */
     public function __construct()
     {
-        $this->storage = new MySQLStorage();
+        $this->storage = new SQLLiteStorage();
     }
 
     /**

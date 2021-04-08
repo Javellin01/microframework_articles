@@ -2,9 +2,10 @@
 
 namespace App\Domain\Repository;
 
+use App\App\App;
 use App\Domain\Entity\Article;
 use App\Domain\Factory\ArticleFactory;
-use App\Domain\Storage\MySQLStorage;
+use App\Domain\Storage\SQLLiteStorage;
 
 /**
  * Class ArticleRepository
@@ -20,7 +21,7 @@ class ArticleRepository implements IArticleRepository
      */
     public function __construct()
     {
-        $this->storage = new MySQLStorage();
+        $this->storage = new SQLLiteStorage();
     }
 
     /**
@@ -59,6 +60,8 @@ class ArticleRepository implements IArticleRepository
      */
     public function add(Article $article)
     {
+        $article->setAuthor(App::getInstance()->getUser()->getId());
+
         return $this->storage->create(self::ENTITY, $article);
     }
 
@@ -68,6 +71,9 @@ class ArticleRepository implements IArticleRepository
      */
     public function update(Article $article)
     {
+        $current = $this->storage->find(self::ENTITY, $article->getId());
+        $article->setAuthor($current['author']);
+
         return $this->storage->update(self::ENTITY, $article);
     }
 

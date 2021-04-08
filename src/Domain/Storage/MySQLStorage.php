@@ -2,7 +2,7 @@
 
 namespace App\Domain\Storage;
 
-use App\Domain\Storage\Connection\Connection;
+use App\Domain\Storage\Connection\ConnectionMySQL;
 use PDO;
 
 /**
@@ -11,7 +11,7 @@ use PDO;
  */
 class MySQLStorage implements IStorage
 {
-    private $connection;
+    protected $connection;
 
     /**
      * @param object $entity
@@ -40,7 +40,7 @@ class MySQLStorage implements IStorage
      */
     public function __construct()
     {
-        $this->connection = Connection::getInstance();
+        $this->connection = ConnectionMySQL::getInstance();
     }
 
     /**
