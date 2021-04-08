@@ -203,8 +203,7 @@ class App
             $response->send();
         }
         catch (\Exception $e) {
-            print_r($e);
-            die();
+            dd($e);
         }
     }
 }

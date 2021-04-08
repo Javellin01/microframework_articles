@@ -11,6 +11,7 @@ class User
     private $password;
     private $email;
     private $remember;
+    private $isAdmin;
 
     /**
      * @return mixed
@@ -89,6 +90,14 @@ class User
         $this->remember = $remember;
 
         return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function checkPrivileges(): bool
+    {
+        return $this->isAdmin === '1';
     }
 
 

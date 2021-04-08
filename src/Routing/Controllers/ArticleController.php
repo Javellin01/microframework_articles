@@ -24,14 +24,19 @@ class ArticleController extends BaseController
 
     public function get(int $id): Response
     {
-        $entity = $this->repository->get($id);
-        if ($entity)
+        $article = $this->repository->get($id);
+        if ($article)
         {
             $params = [
-                'article' => $entity->getData(),
-                'edit' => $this->generateUrl('articles_edit', ['id' => $entity->getId()]),
+                'article' => $article->getData(),
             ];
+
+            if ($this->service->canEdit($article)) {
+                $params['edit'] = $this->generateUrl('articles_edit', ['id' => $article->getId()]);
+                $params['remove'] = $this->generateUrl('api/articles_remove', ['id' => $article->getId()]);
+            }
         }
+
         else
         {
             $params = ['errors' => 'No such article'];
@@ -44,6 +49,33 @@ class ArticleController extends BaseController
     {
         $result = [];
         $arrEntities = $this->repository->all();
+
+        foreach ($arrEntities as $arrEntity) {
+            $resItem = [
+                'title' => $arrEntity->getTitle(),
+                'open' => $this->generateUrl('articles_get', ['id' => $arrEntity->getId()]),
+            ];
+
+            if ($this->service->canEdit($arrEntity))
+            {
+                $resItem['edit'] = $this->generateUrl('articles_edit', ['id' => $arrEntity->getId()]);
+                $resItem['remove'] = $this->generateUrl('api/articles_remove', ['id' => $arrEntity->getId()]);
+            }
+
+            $result[] = $resItem;
+        }
+
+        return $this->render('/articles/all', ['articles' => $result]);
+    }
+
+    public function my(): Response
+    {
+        $result = [];
+
+        $arrEntities = $this->repository->mine(
+            'author',
+            App::getInstance()->getUser()->getId()
+        );
 
         foreach ($arrEntities as $arrEntity) {
             $result[] = [
@@ -67,6 +99,11 @@ class ArticleController extends BaseController
         $id = $request->attributes->get('id');
         $article = $this->repository->get($id);
 
+        if (!$this->service->canEdit($article))
+        {
+            return $this->json('403 Forbidden', 403);
+        }
+
         return $this->render('/articles/edit', [
             'article' => $article->getData(),
             'save' => $this->generateUrl('api/articles_save')
@@ -76,7 +113,6 @@ class ArticleController extends BaseController
     public function create(Request $request): RedirectResponse
     {
         $params = $request->request->all();
-        $params['author'] = App::getInstance()->getUser()->getId();
         $id = $this->service->add($params);
 
         return $this->redirectToRoute('articles_all');
@@ -92,7 +128,7 @@ class ArticleController extends BaseController
 
     public function remove(int $id): RedirectResponse
     {
-        $this->repository->remove($id);
+        $this->service->remove($id);
 
         return $this->redirectToRoute('articles_all');
     }

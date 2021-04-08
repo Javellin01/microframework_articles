@@ -58,7 +58,7 @@ abstract class Factory implements IFactory
     /**
      * @return string
      */
-    abstract protected function getEntityClass();
+    abstract protected function getEntityClass(): string;
 
 
 }

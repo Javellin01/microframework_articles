@@ -31,7 +31,6 @@ class UserController extends BaseController
 
     public function signIn(Request $request): JsonResponse
     {
-        $headers = [];
         if (empty($request->request->get('username')) || empty($request->request->get('password'))) {
             $result['error'] = 'Invalid form data';
 
@@ -42,7 +41,7 @@ class UserController extends BaseController
         if (empty($result['error']))
         {
             $result['success'] = true;
-            $result['redirectTo'] = App::getInstance()->getRoute('articles_all');
+            $result['redirectTo'] = App::getInstance()->getRoute('articles_mine');
             if (!empty($request->request->get('remember-me'))) {
                 $this->setCookie($this->service->rememberMe($result['userId']));
             }
@@ -51,7 +50,7 @@ class UserController extends BaseController
             $result['success'] = false;
         }
 
-        return $this->json($result, 200, $headers);
+        return $this->json($result);
     }
 
     public function signOut(): RedirectResponse

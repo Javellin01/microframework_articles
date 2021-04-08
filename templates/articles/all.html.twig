@@ -15,8 +15,10 @@
             <tr>
                 <td style="width: 50%"><a href="{{ article.open }}">{{ article.title }}</a></td>
                 <td style="width: 50%; text-align: right">
+                {% if article.edit %}
                     <a class="btn btn-dark" href="{{ article.edit }}">Edit</a>
                     <a class="btn btn-dark" href="{{ article.remove }}">Delete</a>
+                {% endif %}
                 </td>
             </tr>
         {% endfor %}

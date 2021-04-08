@@ -3,7 +3,7 @@
 namespace App\Domain\Storage;
 use App\Domain\Storage\Connection\ConnectionSQLLite;
 
-class SQLLiteStorage extends MySQLStorage
+class SQLiteStorage extends MySQLStorage
 {
     /**
      * SQLLiteStorage constructor.

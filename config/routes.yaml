@@ -24,6 +24,10 @@ articles_new:
   path: /articles/new
   controller: App\Routing\Controllers\ArticleController::new
 
+articles_mine:
+  path: /articles/my
+  controller: App\Routing\Controllers\ArticleController::my
+
 articles_create:
   path: /articles/create
   controller: App\Routing\Controllers\ArticleController::create

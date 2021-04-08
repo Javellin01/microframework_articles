@@ -63,13 +63,28 @@ class MySQLStorage implements IStorage
      * @param string $value
      * @return mixed
      */
-    public function findBy(string $table, string $field, string $value)
+    public function findOneBy(string $table, string $field, string $value)
     {
         $sql = 'SELECT * FROM ' . $table . ' WHERE ' . $field . '=?';
         $stm = $this->connection->prepare($sql);
         $stm->execute([$value]);
 
         return $stm->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * @param string $table
+     * @param string $field
+     * @param string $value
+     * @return mixed
+     */
+    public function findGroupBy(string $table, string $field, string $value)
+    {
+        $sql = 'SELECT * FROM ' . $table . ' WHERE ' . $field . '=?';
+        $stm = $this->connection->prepare($sql);
+        $stm->execute([$value]);
+
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**

@@ -5,7 +5,7 @@ namespace App\Domain\Repository;
 use App\App\App;
 use App\Domain\Entity\Article;
 use App\Domain\Factory\ArticleFactory;
-use App\Domain\Storage\SQLLiteStorage;
+use App\Domain\Storage\SQLiteStorage;
 
 /**
  * Class ArticleRepository
@@ -21,11 +21,13 @@ class ArticleRepository implements IArticleRepository
      */
     public function __construct()
     {
-        $this->storage = new SQLLiteStorage();
+        $this->storage = new SQLiteStorage();
     }
+
 
     /**
      * @param int $id
+     * @return Article|null
      */
     public function get(int $id): ?Article
     {
@@ -45,6 +47,18 @@ class ArticleRepository implements IArticleRepository
     public function all(): array
     {
         $queryResult = $this->storage->findAll(self::ENTITY);
+        $result = [];
+
+        foreach ($queryResult as $resItem) {
+            $result[] = ArticleFactory::createFromArray($resItem);
+        }
+
+        return $result;
+    }
+
+    public function mine(string $field, string $value): array
+    {
+        $queryResult = $this->storage->findGroupBy(self::ENTITY, $field, $value);
         $result = [];
 
         foreach ($queryResult as $resItem) {

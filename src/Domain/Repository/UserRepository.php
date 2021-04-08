@@ -4,7 +4,7 @@ namespace App\Domain\Repository;
 
 use App\Domain\Entity\User;
 use App\Domain\Factory\UserFactory;
-use App\Domain\Storage\SQLLiteStorage;
+use App\Domain\Storage\SQLiteStorage;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -21,7 +21,7 @@ class UserRepository implements IUserRepository
      */
     public function __construct()
     {
-        $this->storage = new SQLLiteStorage();
+        $this->storage = new SQLiteStorage();
     }
 
     /**
@@ -43,7 +43,7 @@ class UserRepository implements IUserRepository
     public function getBy(string $field, string $value): ?User
     {
         $user = null;
-        $queryResult = $this->storage->findBy(self::ENTITY, $field, $value);
+        $queryResult = $this->storage->findOneBy(self::ENTITY, $field, $value);
 
         if ($queryResult)
         {
@@ -79,12 +79,5 @@ class UserRepository implements IUserRepository
     public function remove(int $id)
     {
         return $this->storage->delete(self::ENTITY, $id);
-    }
-
-    public function getPasswordHash(int $userId): ?string
-    {
-        $user = $this->storage->find(self::ENTITY, $userId);
-
-        return $user->password;
     }
 }
