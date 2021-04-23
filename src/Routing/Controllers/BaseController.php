@@ -13,6 +13,16 @@ abstract class BaseController
     protected $repository;
     protected $service;
     protected $cookie;
+    protected $container;
+
+    /**
+     * BaseController constructor.
+     * @param $repository
+     */
+    public function __construct()
+    {
+        $this->container = App::getInstance()->container();
+    }
 
     /**
      * @param mixed $cookie

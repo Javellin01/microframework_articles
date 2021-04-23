@@ -5,6 +5,8 @@ namespace App\App;
 use App\App\Services\UserService;
 use App\Domain\Entity\User;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 use Symfony\Component\HttpKernel\Controller\ControllerResolver;
@@ -30,14 +32,41 @@ class App
     private $router;
     private $twig;
     private $user;
+    private $serviceContainer;
+
 
     private function __construct()
     {
         $this->setRequest(Request::createFromGlobals());
         $this->setRequestContext(new RequestContext());
         $this->setRouter();
+        $this->setServiceContainer();
         $this->setTwig();
         $this->setUser();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function container(): ContainerBuilder
+    {
+        return $this->serviceContainer;
+    }
+
+    /**
+     * @param mixed $serviceContainer
+     */
+    public function setServiceContainer(): void
+    {
+        $this->serviceContainer = new ContainerBuilder();
+        $this->serviceContainer->setParameter('mailer.transport', 'sendmail');
+        $this->serviceContainer
+            ->register('mailer', 'App\App\Services\Mailer')
+            ->addArgument('%mailer.transport%');
+
+        $this->serviceContainer
+            ->register('newsletter_manager', 'App\App\Services\NewsLetterManager')
+            ->addArgument(new Reference('mailer'));
     }
 
     /**
@@ -190,6 +219,7 @@ class App
     public function run(): void
     {
         $matcher = new UrlMatcher($this->getRouter()->getRouteCollection(), $this->getRequestContext());
+
         try {
             $this->getRequest()
                 ->attributes

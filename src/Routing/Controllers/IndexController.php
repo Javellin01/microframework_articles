@@ -2,11 +2,8 @@
 
 namespace App\Routing\Controllers;
 
-use App\App\App;
 use App\App\Services\UserService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  */
@@ -26,6 +23,11 @@ class IndexController extends BaseController
     public function test(): JsonResponse
     {
         $s = new UserService();
+
+
+        $newsletterManager = $this->container->get('mailer');
+        $newsletterManager->send();
+
         $s->rememberMe(2);
         return $this->json(['title' => '123']);
     }

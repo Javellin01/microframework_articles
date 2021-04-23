@@ -11,7 +11,8 @@
         "symfony/console": "^5.2",
         "symfony/templating": "^5.2",
         "twig/twig": "^3.3",
-        "samdark/hydrator": "^1.0.4"
+        "samdark/hydrator": "^1.0.4",
+        "symfony/dependency-injection": "^5.2"
     },
     "require-dev": {
         "symfony/var-dumper": "^5.2"
